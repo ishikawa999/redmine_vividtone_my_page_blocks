@@ -1,6 +1,6 @@
 <%=
   current_user_ids = [User.current.id] + User.current.group_ids
-  reference_days = settings[:days].to_i || 7
+  reference_days = settings[:days].present? ? settings[:days].to_i : 7
   query = IssueQuery.new(:name => l(:new_issues) + ": " + l('label_vmpb_reference_days', :days =>  reference_days), :user => User.current)
   query.add_filter "status_id", "o"
   query.add_filter "created_on", ">=", [(Date.today - reference_days).strftime("%Y-%m-%d")]

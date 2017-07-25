@@ -1,6 +1,6 @@
 <%=
   current_user_ids = [User.current.id] + User.current.group_ids
-  neglected_days = settings[:days].to_i || 7
+  neglected_days = settings[:days].present? ? settings[:days].to_i : 7
   query = IssueQuery.new(:name => l(:neglected_issues) + ": " + l('label_vmpb_neglected_days', :days => neglected_days), :user => User.current)
   query.add_filter "status_id", "o"
   query.add_filter "due_date", "!*"
